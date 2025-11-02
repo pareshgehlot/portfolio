@@ -2,7 +2,7 @@ const highlightTimers = new WeakMap();
 
 const highlightTarget = (element) => {
   if (!(element instanceof HTMLElement)) {
-    return;
+    return false;
   }
 
   element.classList.add('is-highlighted');
@@ -17,21 +17,22 @@ const highlightTarget = (element) => {
   }, 2000);
 
   highlightTimers.set(element, timeoutId);
+  return true;
 };
 
 const scrollToTarget = (target) => {
   if (!(target instanceof HTMLElement)) {
-    return;
+    return false;
   }
 
   if (typeof target.scrollIntoView === 'function') {
     try {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
+      return true;
     } catch (error) {
       try {
         target.scrollIntoView(true);
-        return;
+        return true;
       } catch (innerError) {
         // fall through to manual scroll below
       }
@@ -40,28 +41,60 @@ const scrollToTarget = (target) => {
 
   try {
     const rect = target.getBoundingClientRect();
+    if (!rect) {
+      throw new Error('Missing target bounding box');
+    }
+
     window.scrollTo({
       top: window.scrollY + rect.top,
       behavior: 'smooth',
     });
+    return true;
   } catch (error) {
-    window.scrollTo(0, target.offsetTop);
+    try {
+      window.scrollTo(0, target.offsetTop);
+      return true;
+    } catch (innerError) {
+      return false;
+    }
   }
 };
 
 const focusTarget = (target) => {
   if (!(target instanceof HTMLElement) || typeof target.focus !== 'function') {
-    return;
+    return false;
   }
 
   try {
     target.focus({ preventScroll: true });
+    return true;
   } catch (error) {
     try {
       target.focus();
+      return true;
     } catch (innerError) {
       // ignore focus failures entirely
     }
+  }
+
+  return false;
+};
+
+const updateHash = (targetSelector) => {
+  if (typeof targetSelector !== 'string' || !targetSelector.startsWith('#')) {
+    return false;
+  }
+
+  try {
+    if (typeof history.replaceState === 'function') {
+      history.replaceState(null, '', targetSelector);
+      return true;
+    }
+
+    window.location.hash = targetSelector;
+    return true;
+  } catch (error) {
+    return false;
   }
 };
 
@@ -175,22 +208,21 @@ const init = () => {
     }
 
     link.addEventListener('click', (event) => {
+      const didScroll = scrollToTarget(target);
+
+      if (!didScroll) {
+        // Allow the native anchor behaviour to take over when scrolling fails
+        return;
+      }
+
       event.preventDefault();
 
-      scrollToTarget(target);
-      focusTarget(target);
+      window.requestAnimationFrame(() => {
+        focusTarget(target);
+        highlightTarget(target);
+      });
 
-      window.requestAnimationFrame(() => highlightTarget(target));
-
-      try {
-        if (typeof history.replaceState === 'function') {
-          history.replaceState(null, '', targetSelector);
-        } else {
-          window.location.hash = targetSelector;
-        }
-      } catch (error) {
-        // Ignore history failures
-      }
+      updateHash(targetSelector);
     });
   });
 };
