@@ -3,6 +3,98 @@ const pills = document.querySelectorAll('[data-filter]');
 const skillCards = document.querySelectorAll('.skill-card');
 const showMoreButtons = document.querySelectorAll('.show-more');
 const scrollLinks = document.querySelectorAll('[data-scroll-target]');
+const highlightTimers = new WeakMap();
+
+const highlightTarget = (element) => {
+  if (!(element instanceof HTMLElement)) {
+    return false;
+  }
+
+  element.classList.add('is-highlighted');
+
+  if (highlightTimers.has(element)) {
+    window.clearTimeout(highlightTimers.get(element));
+  }
+
+  const timeoutId = window.setTimeout(() => {
+    element.classList.remove('is-highlighted');
+    highlightTimers.delete(element);
+  }, 2000);
+
+  highlightTimers.set(element, timeoutId);
+  return true;
+};
+
+const smoothScrollTo = (target) => {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+
+  if (typeof target.scrollIntoView === 'function') {
+    try {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return true;
+    } catch (error) {
+      try {
+        target.scrollIntoView(true);
+        return true;
+      } catch (innerError) {
+        // ignore and fall back to manual scrolling
+      }
+    }
+  }
+
+  try {
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth',
+    });
+    return true;
+  } catch (error) {
+    try {
+      window.scrollTo(0, target.offsetTop);
+      return true;
+    } catch (innerError) {
+      return false;
+    }
+  }
+};
+
+const focusTarget = (target) => {
+  if (!(target instanceof HTMLElement) || typeof target.focus !== 'function') {
+    return false;
+  }
+
+  try {
+    target.focus({ preventScroll: true });
+    return true;
+  } catch (error) {
+    try {
+      target.focus();
+      return true;
+    } catch (innerError) {
+      return false;
+    }
+  }
+};
+
+const updateHash = (selector) => {
+  if (typeof selector !== 'string' || !selector.startsWith('#')) {
+    return false;
+  }
+
+  try {
+    if (typeof history.replaceState === 'function') {
+      history.replaceState(null, '', selector);
+      return true;
+    }
+
+    window.location.hash = selector;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 const highlightTarget = (element) => {
   if (!(element instanceof HTMLElement)) {
@@ -251,5 +343,34 @@ scrollLinks.forEach((link) => {
     }
 
     history.replaceState(null, '', targetSelector);
+  });
+});
+
+scrollLinks.forEach((link) => {
+  const selector = link.dataset.scrollTarget || link.getAttribute('href');
+  if (!selector || !selector.startsWith('#')) {
+    return;
+  }
+
+  const target = document.querySelector(selector);
+  if (!target) {
+    return;
+  }
+
+  link.addEventListener('click', (event) => {
+    const didScroll = smoothScrollTo(target);
+
+    if (!didScroll) {
+      return;
+    }
+
+    event.preventDefault();
+
+    window.requestAnimationFrame(() => {
+      focusTarget(target);
+      highlightTarget(target);
+    });
+
+    updateHash(selector);
   });
 });
