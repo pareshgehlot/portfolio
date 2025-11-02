@@ -20,7 +20,7 @@ const highlightTarget = (element) => {
   return true;
 };
 
-const scrollToTarget = (target) => {
+const smoothScrollTo = (target) => {
   if (!(target instanceof HTMLElement)) {
     return false;
   }
@@ -98,17 +98,14 @@ const updateHash = (targetSelector) => {
   }
 };
 
-const init = () => {
-  const pills = document.querySelectorAll('[data-filter]');
-  const skillCards = document.querySelectorAll('.skill-card');
-  const showMoreButtons = document.querySelectorAll('.show-more');
-  const scrollLinks = document.querySelectorAll('[data-scroll-target]');
+const setCurrentYear = () => {
   const yearElement = document.getElementById('year');
-
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
+};
 
+const initFilters = (pills, skillCards) => {
   pills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const filter = pill.dataset.filter;
@@ -123,8 +120,10 @@ const init = () => {
       });
     });
   });
+};
 
-  showMoreButtons.forEach((button) => {
+const initShowMore = (buttons) => {
+  buttons.forEach((button) => {
     const container = button.previousElementSibling;
     if (!container) {
       button.hidden = true;
@@ -195,8 +194,10 @@ const init = () => {
       }
     });
   });
+};
 
-  scrollLinks.forEach((link) => {
+const initScrollLinks = (links) => {
+  links.forEach((link) => {
     const targetSelector = link.dataset.scrollTarget || link.getAttribute('href');
     if (!targetSelector || !targetSelector.startsWith('#')) {
       return;
@@ -208,7 +209,7 @@ const init = () => {
     }
 
     link.addEventListener('click', (event) => {
-      const didScroll = scrollToTarget(target);
+      const didScroll = smoothScrollTo(target);
 
       if (!didScroll) {
         // Allow the native anchor behaviour to take over when scrolling fails
@@ -225,6 +226,18 @@ const init = () => {
       updateHash(targetSelector);
     });
   });
+};
+
+const init = () => {
+  const pills = document.querySelectorAll('[data-filter]');
+  const skillCards = document.querySelectorAll('.skill-card');
+  const showMoreButtons = document.querySelectorAll('.show-more');
+  const scrollLinks = document.querySelectorAll('[data-scroll-target]');
+
+  setCurrentYear();
+  initFilters(pills, skillCards);
+  initShowMore(showMoreButtons);
+  initScrollLinks(scrollLinks);
 };
 
 if (document.readyState === 'loading') {
