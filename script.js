@@ -1,3 +1,7 @@
+const pills = document.querySelectorAll('[data-filter]');
+const skillCards = document.querySelectorAll('.skill-card');
+const showMoreButtons = document.querySelectorAll('.show-more');
+const scrollLinks = document.querySelectorAll('[data-scroll-target]');
 const highlightTimers = new WeakMap();
 
 const highlightTarget = (element) => {
@@ -34,19 +38,14 @@ const smoothScrollTo = (target) => {
         target.scrollIntoView(true);
         return true;
       } catch (innerError) {
-        // fall through to manual scroll below
+        // ignore and fall back to manual scrolling
       }
     }
   }
 
   try {
-    const rect = target.getBoundingClientRect();
-    if (!rect) {
-      throw new Error('Missing target bounding box');
-    }
-
     window.scrollTo({
-      top: window.scrollY + rect.top,
+      top: target.offsetTop,
       behavior: 'smooth',
     });
     return true;
@@ -73,175 +72,143 @@ const focusTarget = (target) => {
       target.focus();
       return true;
     } catch (innerError) {
-      // ignore focus failures entirely
+      return false;
     }
   }
-
-  return false;
 };
 
-const updateHash = (targetSelector) => {
-  if (typeof targetSelector !== 'string' || !targetSelector.startsWith('#')) {
+const updateHash = (selector) => {
+  if (typeof selector !== 'string' || !selector.startsWith('#')) {
     return false;
   }
 
   try {
     if (typeof history.replaceState === 'function') {
-      history.replaceState(null, '', targetSelector);
+      history.replaceState(null, '', selector);
       return true;
     }
 
-    window.location.hash = targetSelector;
+    window.location.hash = selector;
     return true;
   } catch (error) {
     return false;
   }
 };
 
-const setCurrentYear = () => {
-  const yearElement = document.getElementById('year');
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
+
+pills.forEach((pill) => {
+  pill.addEventListener('click', () => {
+    const filter = pill.dataset.filter;
+
+    pills.forEach((btn) => btn.classList.remove('active'));
+    pill.classList.add('active');
+
+    skillCards.forEach((card) => {
+      const tags = card.dataset.tags.split(' ');
+      const show = filter === 'all' || tags.includes(filter);
+      card.style.display = show ? 'block' : 'none';
+    });
+  });
+});
+
+showMoreButtons.forEach((button) => {
+  const container = button.previousElementSibling;
+  if (!container) {
+    button.hidden = true;
+    return;
   }
-};
 
-const initFilters = (pills, skillCards) => {
-  pills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      const filter = pill.dataset.filter;
+  const lists = Array.from(container.querySelectorAll('.responsibilities'));
+  const headings = new Map();
+  const items = [];
 
-      pills.forEach((btn) => btn.classList.remove('active'));
-      pill.classList.add('active');
+  lists.forEach((list) => {
+    const heading =
+      list.previousElementSibling &&
+      list.previousElementSibling.classList.contains('responsibility-heading')
+        ? list.previousElementSibling
+        : null;
 
-      skillCards.forEach((card) => {
-        const tags = card.dataset.tags.split(' ');
-        const show = filter === 'all' || tags.includes(filter);
-        card.style.display = show ? 'block' : 'none';
-      });
+    if (heading && !headings.has(heading)) {
+      headings.set(heading, []);
+    }
+
+    Array.from(list.querySelectorAll('[data-responsibility]')).forEach((item) => {
+      items.push({ element: item, heading });
+      if (heading) {
+        headings.get(heading).push(item);
+      }
     });
   });
-};
 
-const initShowMore = (buttons) => {
-  buttons.forEach((button) => {
-    const container = button.previousElementSibling;
-    if (!container) {
-      button.hidden = true;
-      return;
-    }
+  if (items.length <= 3) {
+    button.hidden = true;
+    return;
+  }
 
-    const lists = Array.from(container.querySelectorAll('.responsibilities'));
-    const headings = new Map();
-    const items = [];
-
-    lists.forEach((list) => {
-      const heading =
-        list.previousElementSibling &&
-        list.previousElementSibling.classList.contains('responsibility-heading')
-          ? list.previousElementSibling
-          : null;
-
-      if (heading && !headings.has(heading)) {
-        headings.set(heading, []);
-      }
-
-      Array.from(list.querySelectorAll('[data-responsibility]')).forEach((item) => {
-        items.push({ element: item, heading });
-        if (heading) {
-          headings.get(heading).push(item);
-        }
-      });
-    });
-
-    if (items.length <= 3) {
-      button.hidden = true;
-      return;
-    }
-
-    const collapse = () => {
-      items.forEach((entry, index) => {
-        if (index >= 3) {
-          entry.element.classList.add('is-hidden');
-        } else {
-          entry.element.classList.remove('is-hidden');
-        }
-      });
-
-      headings.forEach((elements, heading) => {
-        const shouldHide = elements.every((item) => item.classList.contains('is-hidden'));
-        heading.classList.toggle('is-hidden', shouldHide);
-      });
-
-      button.textContent = 'Show more';
-      button.setAttribute('aria-expanded', 'false');
-    };
-
-    const expand = () => {
-      items.forEach((entry) => entry.element.classList.remove('is-hidden'));
-      headings.forEach((_, heading) => heading.classList.remove('is-hidden'));
-      button.textContent = 'Show less';
-      button.setAttribute('aria-expanded', 'true');
-    };
-
-    collapse();
-
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      if (expanded) {
-        collapse();
+  const collapse = () => {
+    items.forEach((entry, index) => {
+      if (index >= 3) {
+        entry.element.classList.add('is-hidden');
       } else {
-        expand();
+        entry.element.classList.remove('is-hidden');
       }
     });
-  });
-};
 
-const initScrollLinks = (links) => {
-  links.forEach((link) => {
-    const targetSelector = link.dataset.scrollTarget || link.getAttribute('href');
-    if (!targetSelector || !targetSelector.startsWith('#')) {
+    headings.forEach((elements, heading) => {
+      const shouldHide = elements.every((item) => item.classList.contains('is-hidden'));
+      heading.classList.toggle('is-hidden', shouldHide);
+    });
+
+    button.textContent = 'Show more';
+    button.setAttribute('aria-expanded', 'false');
+  };
+
+  const expand = () => {
+    items.forEach((entry) => entry.element.classList.remove('is-hidden'));
+    headings.forEach((_, heading) => heading.classList.remove('is-hidden'));
+    button.textContent = 'Show less';
+    button.setAttribute('aria-expanded', 'true');
+  };
+
+  collapse();
+
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    if (expanded) {
+      collapse();
+    } else {
+      expand();
+    }
+  });
+});
+
+scrollLinks.forEach((link) => {
+  const selector = link.dataset.scrollTarget || link.getAttribute('href');
+  if (!selector || !selector.startsWith('#')) {
+    return;
+  }
+
+  const target = document.querySelector(selector);
+  if (!target) {
+    return;
+  }
+
+  link.addEventListener('click', (event) => {
+    const didScroll = smoothScrollTo(target);
+
+    if (!didScroll) {
       return;
     }
 
-    const target = document.querySelector(targetSelector);
-    if (!target) {
-      return;
-    }
+    event.preventDefault();
 
-    link.addEventListener('click', (event) => {
-      const didScroll = smoothScrollTo(target);
-
-      if (!didScroll) {
-        // Allow the native anchor behaviour to take over when scrolling fails
-        return;
-      }
-
-      event.preventDefault();
-
-      window.requestAnimationFrame(() => {
-        focusTarget(target);
-        highlightTarget(target);
-      });
-
-      updateHash(targetSelector);
+    window.requestAnimationFrame(() => {
+      focusTarget(target);
+      highlightTarget(target);
     });
+
+    updateHash(selector);
   });
-};
-
-const init = () => {
-  const pills = document.querySelectorAll('[data-filter]');
-  const skillCards = document.querySelectorAll('.skill-card');
-  const showMoreButtons = document.querySelectorAll('.show-more');
-  const scrollLinks = document.querySelectorAll('[data-scroll-target]');
-
-  setCurrentYear();
-  initFilters(pills, skillCards);
-  initShowMore(showMoreButtons);
-  initScrollLinks(scrollLinks);
-};
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init, { once: true });
-} else {
-  init();
-}
+});
