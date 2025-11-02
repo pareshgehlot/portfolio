@@ -16,7 +16,6 @@
     <header class="site-header">
       <div class="container">
         <div class="branding">
-          <span class="tag">Tech Lead</span>
           <h1>Paresh Gehlot</h1>
           <p>
             Dynamic and visionary technology leader with extensive experience in
@@ -24,22 +23,34 @@
             collaboration.
           </p>
           <div class="cta-group">
-            <a class="btn primary" href="#contact">Get in touch</a>
+            <a class="btn primary" href="#contact" data-scroll-target="#contact">Get in touch</a>
             <a class="btn ghost" href="#experience">View experience</a>
           </div>
         </div>
-        <div class="contact-card" id="contact">
+        <div class="contact-card" id="contact" tabindex="-1">
           <h2>Contact</h2>
-          <ul>
-            <li><strong>Email</strong><a href="mailto:gehlot.paresh@gmail.com">gehlot.paresh@gmail.com</a></li>
-            <li><strong>Phone</strong><a href="tel:+16477859885">+1 647-785-9885</a></li>
-            <li>
-              <strong>LinkedIn</strong>
-              <a href="https://www.linkedin.com/in/paresh-gehlot-8a8270b2/" target="_blank" rel="noreferrer"
-                >linkedin.com/in/paresh-gehlot-8a8270b2</a
-              >
-            </li>
-          </ul>
+          <figure class="qr-card">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fparesh-gehlot-8a8270b2%2F"
+              alt="QR code linking to Paresh Gehlot's LinkedIn profile"
+              width="160"
+              height="160"
+              loading="lazy"
+            />
+            <figcaption>Scan to connect on LinkedIn</figcaption>
+          </figure>
+          <div class="contact-details">
+            <ul>
+              <li><strong>Email</strong><a href="mailto:gehlot.paresh@gmail.com">gehlot.paresh@gmail.com</a></li>
+              <li><strong>Phone</strong><a href="tel:+16477859885">+1 647-785-9885</a></li>
+              <li>
+                <strong>LinkedIn</strong>
+                <a href="https://www.linkedin.com/in/paresh-gehlot-8a8270b2/" target="_blank" rel="noreferrer"
+                  >linkedin.com/in/paresh-gehlot-8a8270b2</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
@@ -486,7 +497,7 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>© <span id="year"></span> Paresh Gehlot. Built with craftsmanship and care.</p>
+        <p>© <span id="year"></span> Paresh Gehlot.</p>
       </div>
     </footer>
 
