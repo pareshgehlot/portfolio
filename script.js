@@ -1,4 +1,8 @@
 const highlightTimers = new WeakMap();
+const pills = document.querySelectorAll('[data-filter]');
+const skillCards = document.querySelectorAll('.skill-card');
+const showMoreButtons = document.querySelectorAll('.show-more');
+const scrollLinks = document.querySelectorAll('[data-scroll-target]');
 
 const highlightTarget = (element) => {
   if (!(element instanceof HTMLElement)) {
@@ -225,10 +229,27 @@ const init = () => {
       updateHash(targetSelector);
     });
   });
-};
+});
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init, { once: true });
-} else {
-  init();
-}
+scrollLinks.forEach((link) => {
+  const targetSelector = link.dataset.scrollTarget || link.getAttribute('href');
+  if (!targetSelector || !targetSelector.startsWith('#')) {
+    return;
+  }
+
+  const target = document.querySelector(targetSelector);
+  if (!target) {
+    return;
+  }
+
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (target instanceof HTMLElement) {
+      target.focus({ preventScroll: true });
+    }
+
+    history.replaceState(null, '', targetSelector);
+  });
+});
