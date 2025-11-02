@@ -19,6 +19,52 @@ const highlightTarget = (element) => {
   highlightTimers.set(element, timeoutId);
 };
 
+const scrollToTarget = (target) => {
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
+
+  if (typeof target.scrollIntoView === 'function') {
+    try {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    } catch (error) {
+      try {
+        target.scrollIntoView(true);
+        return;
+      } catch (innerError) {
+        // fall through to manual scroll below
+      }
+    }
+  }
+
+  try {
+    const rect = target.getBoundingClientRect();
+    window.scrollTo({
+      top: window.scrollY + rect.top,
+      behavior: 'smooth',
+    });
+  } catch (error) {
+    window.scrollTo(0, target.offsetTop);
+  }
+};
+
+const focusTarget = (target) => {
+  if (!(target instanceof HTMLElement) || typeof target.focus !== 'function') {
+    return;
+  }
+
+  try {
+    target.focus({ preventScroll: true });
+  } catch (error) {
+    try {
+      target.focus();
+    } catch (innerError) {
+      // ignore focus failures entirely
+    }
+  }
+};
+
 const init = () => {
   const pills = document.querySelectorAll('[data-filter]');
   const skillCards = document.querySelectorAll('.skill-card');
@@ -131,24 +177,19 @@ const init = () => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
 
-      if (typeof target.scrollIntoView === 'function') {
-        try {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } catch (error) {
-          target.scrollIntoView(true);
-        }
-      }
-
-      if (target instanceof HTMLElement && typeof target.focus === 'function') {
-        target.focus({ preventScroll: true });
-      }
+      scrollToTarget(target);
+      focusTarget(target);
 
       window.requestAnimationFrame(() => highlightTarget(target));
 
-      if (typeof history.replaceState === 'function') {
-        history.replaceState(null, '', targetSelector);
-      } else {
-        window.location.hash = targetSelector;
+      try {
+        if (typeof history.replaceState === 'function') {
+          history.replaceState(null, '', targetSelector);
+        } else {
+          window.location.hash = targetSelector;
+        }
+      } catch (error) {
+        // Ignore history failures
       }
     });
   });
