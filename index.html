@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paresh Gehlot | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="branding">
+          <span class="tag">Tech Lead</span>
+          <h1>Paresh Gehlot</h1>
+          <p>
+            Dynamic and visionary technology leader with extensive experience in
+            global software delivery, platform modernization, and cross-team
+            collaboration.
+          </p>
+          <div class="cta-group">
+            <a class="btn primary" href="#contact">Get in touch</a>
+            <a class="btn ghost" href="#experience">View experience</a>
+          </div>
+        </div>
+        <div class="contact-card" id="contact">
+          <h2>Contact</h2>
+          <ul>
+            <li><strong>Email</strong><a href="mailto:gehlot.paresh@gmail.com">gehlot.paresh@gmail.com</a></li>
+            <li><strong>Phone</strong><a href="tel:+16477859885">+1 647-785-9885</a></li>
+            <li>
+              <strong>LinkedIn</strong>
+              <a href="https://www.linkedin.com/in/paresh-gehlot-8a8270b2/" target="_blank" rel="noreferrer"
+                >linkedin.com/in/paresh-gehlot-8a8270b2</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="objective">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Objective</span>
+            <h2>Driving resilient engineering organizations</h2>
+          </div>
+          <p class="lead">
+            I architect and deliver dependable, high-quality systems that power
+            global-scale products. My expertise spans distributed microservices,
+            event-driven architectures, and continuous delivery pipelines. I love
+            partnering with stakeholders to turn complex requirements into
+            intuitive customer experiences.
+          </p>
+        </div>
+      </section>
+
+      <section class="section shaded" id="skills">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Skills snapshot</span>
+            <h2>Full-stack delivery with cloud-first execution</h2>
+          </div>
+          <div class="pill-grid" data-filter-group>
+            <button class="pill active" data-filter="all">All</button>
+            <button class="pill" data-filter="leadership">Leadership</button>
+            <button class="pill" data-filter="architecture">Architecture</button>
+            <button class="pill" data-filter="frontend">Frontend</button>
+            <button class="pill" data-filter="backend">Backend</button>
+            <button class="pill" data-filter="tooling">Tooling</button>
+          </div>
+          <div class="skill-grid" id="skillGrid">
+            <article class="skill-card" data-tags="leadership architecture">
+              <h3>Technical Program Leadership</h3>
+              <p>
+                End-to-end delivery ownership from discovery to launch, sprint
+                planning, stakeholder communication, and cross-team alignment.
+              </p>
+            </article>
+            <article class="skill-card" data-tags="architecture backend">
+              <h3>Event-driven Microservices</h3>
+              <p>
+                Design resilient services with Kafka, AWS Lambda, and serverless
+                architectures, ensuring seamless integrations and scale.
+              </p>
+            </article>
+            <article class="skill-card" data-tags="architecture backend tooling">
+              <h3>DevSecOps Automation</h3>
+              <p>
+                Build secure CI/CD pipelines, infrastructure-as-code, and
+                observability dashboards to accelerate releases and maintain
+                compliance.
+              </p>
+            </article>
+            <article class="skill-card" data-tags="frontend">
+              <h3>Experience-Led Interfaces</h3>
+              <p>
+                Craft responsive web applications with Angular and modern design
+                systems, prioritizing accessibility and maintainability.
+              </p>
+            </article>
+            <article class="skill-card" data-tags="backend architecture">
+              <h3>API & Integration Strategy</h3>
+              <p>
+                Architect REST and GraphQL APIs, orchestrate microservices
+                lifecycles, integrate third-party platforms, and optimize data
+                models across SQL and NoSQL stores.
+              </p>
+            </article>
+            <article class="skill-card" data-tags="leadership tooling">
+              <h3>Quality & Reliability</h3>
+              <p>
+                Champion code review culture, introduce automation with Selenium
+                and Jest, and build guardrails for proactive incident prevention.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Experience</span>
+            <h2>Delivering impact across industries</h2>
+          </div>
+          <div class="experience-timeline">
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>AQUANOW – Toronto, Canada</h3>
+                  <span class="meta">Role: Tech Lead | Duration: Jun 2025 – Aug 2025</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/aquanow-logo.svg"
+                  alt="Aquanow logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Architected and developed an end-to-end remittance application for global payments enabling fiat-to-crypto-to-fiat transactions.</li>
+                  <li data-responsibility>Designed and implemented microservices using NestJS, modularized into core domains — Quote, Payments, Transactions, and Balances.</li>
+                  <li data-responsibility>Engineered DynamoDB schemas and optimized data models for high-throughput, low-latency payment workflows.</li>
+                  <li data-responsibility>Integrated orchestration ensuring flawless settlement: client funds fiat → trade to stablecoins → payout partner converts to local currency.</li>
+                  <li data-responsibility>Leveraged Apache Kafka for event-driven architecture enabling reliable messaging, transaction tracking, and real-time updates.</li>
+                  <li data-responsibility>Defined and enforced architectural standards for scalability, fault tolerance, and future extensibility.</li>
+                  <li data-responsibility>Collaborated with product, trading, and compliance teams aligning financial flows with business and regulatory requirements.</li>
+                  <li data-responsibility>Implemented observability practices—logging, monitoring, and alerting for critical payment events and service health.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>CIBC (Canadian Imperial Bank of Commerce) – Toronto, Canada</h3>
+                  <span class="meta">Roles &amp; Durations:</span>
+                  <ul class="role-list">
+                    <li>Senior Tech Lead | Nov 2023 – May 2025</li>
+                    <li>Tech Lead | Jan 2023 – Nov 2023</li>
+                  </ul>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/cibc-logo.svg"
+                  alt="CIBC logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <p class="responsibility-heading">Responsibilities (Senior Tech Lead):</p>
+                <ul class="responsibilities">
+                  <li data-responsibility>Pioneered advanced security hardening: JWT Expiration, Concurrent Login prevention, and Secure Cookies.</li>
+                  <li data-responsibility>Managed multiple banking products simultaneously combining technical leadership and innovation.</li>
+                  <li data-responsibility>Integrated Fortify, Blackduck, and SonarQube to enhance code quality and reduce deployment issues.</li>
+                  <li data-responsibility>Automated client onboarding and CI/CD pipelines for seamless deployments.</li>
+                  <li data-responsibility>Improved collaboration between offshore and onshore teams through optimized workflows.</li>
+                  <li data-responsibility>Reviewed project timelines regularly, presented progress in executive meetings.</li>
+                  <li data-responsibility>Troubleshot post-release issues and implemented live software patches.</li>
+                </ul>
+                <p class="responsibility-heading">Responsibilities (Tech Lead):</p>
+                <ul class="responsibilities">
+                  <li data-responsibility>Directed a major API modernization initiative reducing API latency from 160s → 8s.</li>
+                  <li data-responsibility>Authored a year-long delivery roadmap for API modernization and releases.</li>
+                  <li data-responsibility>Designed Backend-for-Frontend (BFF) architecture for performance scalability.</li>
+                  <li data-responsibility>Mentored 6 developers (senior → junior) promoting technical excellence.</li>
+                  <li data-responsibility>Enforced code review and quality standards through GitHub PRs.</li>
+                  <li data-responsibility>Applied Agile methodologies from prototype → testing → deployment.</li>
+                  <li data-responsibility>Managed full software development life cycle (SDLC).</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>IRCC (Immigration, Refugees and Citizenship Canada) – Ottawa, Canada</h3>
+                  <span class="meta">Role: Senior Full-Stack Software Engineer | Duration: Aug 2022 – Dec 2022</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/ircc-logo.svg"
+                  alt="Immigration, Refugees and Citizenship Canada logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Designed and developed AWS serverless full-stack (Angular + Lambda) applications.</li>
+                  <li data-responsibility>Proposed optimized database structures, work breakdowns, and estimation frameworks.</li>
+                  <li data-responsibility>Acted as liaison between business and technical teams, converting requirements into tech deliverables.</li>
+                  <li data-responsibility>Mentored engineers and participated in Agile ceremonies—planning, review, refinement.</li>
+                  <li data-responsibility>Created reusable Angular components; ensured responsive web design.</li>
+                  <li data-responsibility>Integrated frontend components with backend microservices.</li>
+                  <li data-responsibility>Secured traffic using AWS WAF IP sets and authorization filters.</li>
+                  <li data-responsibility>Monitored via CloudWatch, implemented migration scripts for DB schema updates.</li>
+                  <li data-responsibility>Deployed CI/CD pipelines with AWS CodePipeline for dev, stage, prod.</li>
+                  <li data-responsibility>Authored Release documentation outlining all release changes for stakeholders.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>CHOMP BTC – Toronto (Remote for U.S. Company)</h3>
+                  <span class="meta">Role: Senior Backend Engineer (Full-Stack) | Duration: Sep 2021 – Mar 2022</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/chomp-btc-logo.svg"
+                  alt="Chomp BTC logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Built full-stack crypto exchange (NestJS + React + MongoDB + Redis).</li>
+                  <li data-responsibility>Completed official NestJS Fundamentals course.</li>
+                  <li data-responsibility>Designed custom NestJS Guards for request authentication.</li>
+                  <li data-responsibility>Built Asset, Transaction, and Ledger modules for financial tracking.</li>
+                  <li data-responsibility>Implemented complete mailing cycle (signup → trade completion).</li>
+                  <li data-responsibility>Created REST APIs for wallets, assets, and deposit addresses.</li>
+                  <li data-responsibility>Integrated FireBlocks APIs to manage crypto vaults and wallets.</li>
+                  <li data-responsibility>Developed unit and e2e tests with Jest, managed PRs and code merges.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>CELLBIE INC – Mississauga, Ontario</h3>
+                  <span class="meta">Roles &amp; Durations:</span>
+                  <ul class="role-list">
+                    <li>Software Engineer (Full-Stack) | May 2018 – Aug 2022</li>
+                    <li>Senior Co-Op (Web Developer) | Jan 2018 – Apr 2018</li>
+                  </ul>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/cellbie-logo.svg"
+                  alt="Cellbie logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <p class="responsibility-heading">Responsibilities (Software Engineer):</p>
+                <ul class="responsibilities">
+                  <li data-responsibility>Developed a Python + Redis platform connecting buyers &amp; sellers for device trades.</li>
+                  <li data-responsibility>Automated server startup/recovery scripts to ensure near-zero downtime.</li>
+                  <li data-responsibility>Created UI templates with HTML5, CSS3, Bootstrap, JQuery.</li>
+                  <li data-responsibility>Enhanced UI responsiveness and usability.</li>
+                </ul>
+                <p class="responsibility-heading">Responsibilities (Senior Co-Op):</p>
+                <ul class="responsibilities">
+                  <li data-responsibility>Built Selenium-based automated test flows for mobile trade-in system.</li>
+                  <li data-responsibility>Modularized test architecture, managed single-point execution.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>RAPIDOPS SOLUTION – Ahmedabad, India</h3>
+                  <span class="meta">Role: Software Engineer (Node.js) | Duration: Jul 2016 – Aug 2016</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/rapidops-logo.svg"
+                  alt="Rapidops logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Created work-log API fetching data from JIRA TEMPO API into MySQL.</li>
+                  <li data-responsibility>Designed report generation pages for employee/project time tracking.</li>
+                  <li data-responsibility>Built full-stack web app using Node.js (Express) + Bootstrap + jQuery.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>ECOSMOB TECHNOLOGIES PVT LTD – Ahmedabad, India</h3>
+                  <span class="meta">Role: Software Developer | Duration: Jun 2013 – Apr 2016</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/ecosmob-logo.svg"
+                  alt="Ecosmob Technologies logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Developed Media Streaming &amp; IPTV systems using Node.js + MongoDB.</li>
+                  <li data-responsibility>Designed secure REST APIs (GET/POST/PUT/DELETE).</li>
+                  <li data-responsibility>Built APIs for user playlists, favorites, and infinite-scroll streaming.</li>
+                  <li data-responsibility>Used EvoStream, JW Player, AdButler, Google DFP integrations.</li>
+                  <li data-responsibility>Applied Passport.js authentication and Mongoose schema design.</li>
+                  <li data-responsibility>Implemented social logins and multiple Node clusters for scalability.</li>
+                  <li data-responsibility>Created Admin Panel using PHP Yii + MongoDB for content management.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+            <article class="experience-card">
+              <div class="card-header">
+                <div>
+                  <h3>JOE SOLUTIONS – Ahmedabad, India</h3>
+                  <span class="meta">Role: Software Developer | Duration: Jan 2013 – May 2013</span>
+                </div>
+                <img
+                  class="company-logo"
+                  src="assets/joe-solutions-logo.svg"
+                  alt="Joe Solutions logo"
+                />
+              </div>
+              <div class="responsibility-wrapper">
+                <ul class="responsibilities">
+                  <li data-responsibility>Built website builder platform (PHP, MySQL, JS, HTML5/CSS3).</li>
+                  <li data-responsibility>Designed DFDs, data dictionaries, and front-end templates.</li>
+                  <li data-responsibility>Handled backend integration, testing, deployment, and QA.</li>
+                </ul>
+              </div>
+              <button class="show-more" type="button" aria-expanded="false">Show more</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shaded" id="projects">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Projects</span>
+            <h2>Building secure, scalable digital platforms</h2>
+          </div>
+          <div class="project-grid">
+            <article class="project-card">
+              <div class="project-meta">
+                <span class="tag">Web3</span>
+                <span class="tag">Fintech</span>
+              </div>
+              <h3>Global Payments</h3>
+              <p>
+                Full-stack trading surveillance suite with NestJS, Kafka, and AWS
+                SQS ensuring regulatory compliance for crypto exchanges.
+              </p>
+              <ul>
+                <li>Real-time anomaly detection using serverless event processors.</li>
+                <li>Dynamic dashboards for compliance teams with advanced filtering.</li>
+              </ul>
+            </article>
+            <article class="project-card">
+              <div class="project-meta">
+                <span class="tag">Media</span>
+                <span class="tag">Streaming</span>
+              </div>
+              <h3>IPTV Media Platform</h3>
+              <p>
+                Designed and deployed REST APIs for video management, payment
+                workflows, and content delivery for high-traffic streaming
+                services.
+              </p>
+              <ul>
+                <li>Automated metadata ingestion and categorization workflows.</li>
+                <li>Scalable multi-tenant architecture powered by MongoDB.</li>
+              </ul>
+            </article>
+            <article class="project-card">
+              <div class="project-meta">
+                <span class="tag">GovTech</span>
+                <span class="tag">Cloud</span>
+              </div>
+              <h3>Permanent Residence Portal</h3>
+              <p>
+                Migrated legacy adjudication processes onto AWS with modern API
+                gateways, observability, and automated regression testing.
+              </p>
+              <ul>
+                <li>Secured sensitive workflows with multi-layer authorization.</li>
+                <li>Reduced manual processing time by 40% through workflow automation.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="awards">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Awards and Recognition</span>
+            <h2>Awards and Recognition</h2>
+          </div>
+          <div class="award-grid">
+            <article class="award-card">
+              <h3>Best Performer of the Quarter</h3>
+              <p>Ecosmob Technologies Pvt Ltd</p>
+            </article>
+            <article class="award-card">
+              <h3>Highest GPA Award</h3>
+              <p>Web Design and Development, Lambton College</p>
+            </article>
+            <article class="award-card">
+              <h3>Outstanding Academic Performance Award</h3>
+              <p>Web Design and Development, Lambton College</p>
+            </article>
+            <article class="award-card">
+              <h3>Ranked in Top Students</h3>
+              <p>Web Design and Development, Lambton College</p>
+            </article>
+            <article class="award-card">
+              <h3>Student of the Month (Oct 2016)</h3>
+              <p>Web Design and Development, Lambton College</p>
+            </article>
+            <article class="award-card">
+              <h3>Stood Second in Best Project</h3>
+              <p>Bachelor of Computer Applications (BCA), Gujarat University</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shaded" id="education">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Education</span>
+            <h2>Grounded in computer science excellence</h2>
+          </div>
+          <div class="education-grid">
+            <article class="education-card">
+              <h3>Master of Computer Applications (MCA)</h3>
+              <p>Gujarat University · 2010 – 2013</p>
+            </article>
+            <article class="education-card">
+              <h3>Bachelor of Computer Applications (BCA)</h3>
+              <p>Gujarat University · 2007 – 2010</p>
+            </article>
+            <article class="education-card">
+              <h3>Web Design & Development</h3>
+              <p>Lambton College · 2016 – 2018</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cta">
+        <div class="container">
+          <div class="cta-panel">
+            <h2>Let’s shape the next chapter together</h2>
+            <p>
+              I love partnering with bold teams tackling ambitious product
+              challenges. Whether you’re building a new platform or scaling an
+              existing one, let’s connect.
+            </p>
+            <a class="btn primary" href="mailto:gehlot.paresh@gmail.com">Start a conversation</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> Paresh Gehlot. Built with craftsmanship and care.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
